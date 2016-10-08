@@ -25,6 +25,7 @@ import sbtrelease.ReleasePlugin.autoImport._
 import sbtrelease.ReleasePlugin.autoImport.ReleaseTransformations._
 import com.typesafe.sbt.pgp._
 import bintray.BintrayPlugin.autoImport._
+import sbtassembly.AssemblyPlugin.autoImport._
 
 object SparkRedshiftBuild extends Build {
   val testSparkVersion = settingKey[String]("Spark version to test against")
@@ -46,6 +47,10 @@ object SparkRedshiftBuild extends Build {
       name := "spark-redshift",
       organization := "com.databricks",
       scalaVersion := "2.11.7",
+      assemblyJarName in assembly := "spark-redshift-shaded-2.0.0.jar",
+      assemblyShadeRules in assembly := Seq
+      (ShadeRule.rename("com.databricks.spark.redshift.**" -> "com.databricks.shaded.spark.redshift.@1")
+        .inAll),
       crossScalaVersions := Seq("2.10.5", "2.11.7"),
       sparkVersion := "2.0.0",
       testSparkVersion := sys.props.get("spark.testVersion").getOrElse(sparkVersion.value),
