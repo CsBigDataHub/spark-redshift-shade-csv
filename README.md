@@ -515,3 +515,4 @@ If the deprecated `usestagingtable` setting is set to `false` then this library 
 ## Migration Guide
 
 - Version 2.0 removed a number of deprecated APIs; for details, see https://github.com/databricks/spark-redshift/pull/239
+# spark-redshift-shade-csv-latest
